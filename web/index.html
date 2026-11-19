@@ -1,33 +1,12 @@
-<!doctype html>
-<html lang="en-CA">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="{{DESCRIPTION}}">
-  <title>{{TITLE}} · CoolCode</title>
-  <link rel="stylesheet" href="./style.css">
-  <script type="module" src="./app.mjs"></script>
-</head>
-<body data-tool-id="{{TOOL_ID}}">
-  <a class="skip" href="#main">Skip to content</a>
-  <header><a href="https://coolcode.ca/">← CoolCode.ca</a><a href="{{SOURCE_URL}}">Source &amp; instructions ↗</a></header>
-  <main id="main">
-    <p class="eyebrow">Browser tool starter</p>
-    <h1>{{TITLE}}</h1>
-    <p class="intro">{{DESCRIPTION}}</p>
-    <section aria-labelledby="example-title">
-      <h2 id="example-title">Clean a list</h2>
-      <p>Trim spaces, skip blank lines and remove exact duplicates. Capitalization stays distinct.</p>
-      <div class="panels">
-        <div><label for="input">Your lines</label><textarea id="input" rows="10" maxlength="100000" spellcheck="false" placeholder="Paste one item per line"></textarea></div>
-        <div><label for="output">Cleaned lines</label><textarea id="output" rows="10" readonly spellcheck="false"></textarea></div>
-      </div>
-      <div class="actions"><button id="sample" type="button">Load example</button><button id="clear" type="button">Clear</button><button id="copy" type="button" hidden>Copy result</button></div>
-      <p id="status" role="status" aria-live="polite">Paste a list to begin.</p>
-      <noscript><p>This tool needs JavaScript to process your text. The source is available above.</p></noscript>
-    </section>
-    <aside aria-label="Privacy"><strong>Stays on your device.</strong> This example makes no API requests and does not save your text. Reloading clears it.</aside>
-  </main>
-  <footer>Part of <a href="https://coolcode.ca/">the CoolCode collection</a>.</footer>
-</body>
-</html>
+<!doctype html><html lang="en-CA"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="{{DESCRIPTION}}"><title>{{TITLE}} · CoolCode</title><link rel="stylesheet" href="./style.css"><script type="module" src="./app.mjs"></script></head>
+<body data-tool-id="{{TOOL_ID}}"><a class="skip" href="#main">Skip to storm comparison</a><header><nav><a href="https://coolcode.ca/">← CoolCode</a><a href="{{SOURCE_URL}}">Source &amp; guide ↗</a></nav><h1>{{TITLE}}</h1><p>When the lights went out, what could internet measurements see? Line up the utility’s reports with the signal for the whole province.</p></header>
+<main id="main"><p id="status" class="meta" role="status">Opening the outage records…</p><section class="controls" aria-label="Comparison settings">
+<label>Storm or recent week<select id="event"></select></label>
+<label>Internet measurement<select id="metric"><option value="ping-slash24">Active probing · reachable networks</option><option value="bgp">BGP · routed address blocks</option></select></label>
+<label>Display times<select id="zone"><option value="local">Province local time</option><option value="utc">UTC</option></select></label></section>
+<div id="results" hidden><div class="cards"><div class="card"><h3>Lowest hourly signal</h3><p class="big" id="low"></p><p id="lowtime"></p></div><div class="card"><h3>Reference week</h3><p class="big" id="ref"></p><p id="base"></p></div></div>
+<section><h2 id="title"></h2><p id="context"></p><div id="graph"></div><p class="hint">The dotted line is the preceding week’s baseline. Gold lines mark utility updates with a known hour. Reporting gaps interrupt the line.</p>
+<label>Inspect an hour<select id="hour"></select></label><p class="callout" id="reading" role="status"></p>
+<div class="actions"><button id="download">Download hourly comparison (.csv)</button><a id="ioda">Explore this period in IODA ↗</a></div></section>
+<section><h2>Electricity reports</h2><p id="power"></p><div class="scroll"><table><thead><tr><th>Reported at</th><th>Utility count</th><th>Coverage</th><th>Internet signal that hour</th></tr></thead><tbody id="rows"></tbody></table></div><p><a id="utility"></a></p></section>
+<section><h2>Saved daily internet readings</h2><p class="hint">The archive keeps the first complete local-day summary for each province. Percentages use the reference week for their capture.</p><details><summary id="dailySummary">Open daily archive</summary><div class="scroll"><table><thead><tr><th>Local day</th><th>Lowest hour</th><th>Daily median</th><th>Hours</th><th>Reference week ended before</th></tr></thead><tbody id="archiveRows"></tbody></table></div></details></section><section><h2>What the two records measure</h2><p id="method"></p><p>Customers, routed blocks and probe responses have different denominators. Some internet equipment has backup power. Network failures can also have other causes. A provincial average can hide a local interruption.</p><p id="sources"></p><p><a href="https://ioda.inetintel.cc.gatech.edu/">Georgia Tech IODA</a> · <a id="api">Signal data query</a> · <a href="https://coolcode.ca/stormtracks/">Storm Tracks</a></p></section></div></main></body></html>

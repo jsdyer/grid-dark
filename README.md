@@ -1,115 +1,23 @@
-# CoolCode browser tool template
+# Grid Dark
 
-A starting point for independent tools at `coolcode.ca/<repo>/`: a working local-text
-example, responsive UI, Python standard-library build, Node tests, PR checks and Pages
-publication. No npm install is needed.
+[Compare utility and internet measurements](https://coolcode.ca/grid-dark/)
 
-## Using the example
+Explore Hurricane Fiona in Nova Scotia in 2022 and the November 2024 Vancouver Island windstorm. Match dated electricity bulletins with hourly provincial internet measurements, inspect the lowest hour by metric and download the comparison. Two recent views and a growing daily internet archive cover British Columbia and Nova Scotia.
 
 <!-- coolcode:guide -->
-The first occurrence of each trimmed line keeps its place. Compare the output with the original text before copying the result.
+During Fiona, Nova Scotia’s lowest hourly active-probing signal was 46.0% of its reference median, while the lowest routing signal was 93.4%. Switch measurements, then select a dated utility row to inspect what each source recorded around the same hour.
 <!-- /coolcode:guide -->
 
-For a real tool, replace this paragraph with one or two plain-text sentences
-about an example, a limit or how to interpret the results. Keep the source,
-coverage, refresh behaviour and a worked example in this README as appropriate.
-When updating a tool, revise any details its behaviour has changed and keep the
-homepage's shorter data-source sentence in `tool.json` accurate.
-The hub imports the marked note into the catalogue README.
+## Read the measures
 
-## One-time template setup
+[Georgia Tech IODA](https://ioda.inetintel.cc.gatech.edu/) provides regional active-probing and BGP measurements. An active-probing observation counts responsive /24 network blocks. BGP measures the visible routed address space in /24 units. An internet signal of 46% describes a relative measurement. It cannot give the fraction of homes that lost internet. A province-wide series can conceal a local failure. Coincident movements alone cannot identify the cause or an individual household's restoration time.
 
-Enable **Settings → General → Template repository** here. This repository does not
-need Pages enabled: its workflow builds/tests but intentionally skips deployment.
-New copies also skip deployment until `scripts/init.py` sets the tool ID to match
-their repository name. This lets you create the repo before configuring Pages.
+For each interval, the collector calculates hourly medians of native samples. At least half the expected samples must be present. It takes the median of usable hourly values in the seven days immediately preceding the interval and expresses each hour as a percentage of that baseline. At least 84 baseline hours are required. Missing hours appear as gaps and empty CSV values. Hour selection uses UTC internally and displays local time by default.
 
-## Start a new tool
+Power references contain original factual annotations linked to dated [BC Hydro](https://www.bchydro.com/news/press_centre/news_releases/2024/november-island-windstorm.html) and [Nova Scotia Power](https://www.nspower.ca/about-us/press-releases/2022/09/26/ns-power-hurricane-fiona-update) bulletins. They preserve approximate amounts, geography, publication precision and the measure in each bulletin. BC Hydro's later updates narrow to island customers. Nova Scotia Power's figures count cumulative restorations. Calendar-day-only updates cannot be matched to one hour. The launch edition has ten utility entries. Further power events are manually source-checked. Current utility maps are linked directly. See [BC Hydro legal](https://www.bchydro.com/siteinfo/legal.html), [Nova Scotia Power legal](https://www.nspower.ca/legal) and [IODA’s guidance for analyzing and sharing signal data](https://ioda.inetintel.cc.gatech.edu/reports/ioda-markup/).
 
-1. Select **Use this template → Create a new repository**, choose owner `jsdyer`,
-   a unique lowercase name such as `my-tool`, and public visibility.
-2. Clone the new repository. Use Python 3.12+ and Node 24+.
-3. Set the identity, using a slug that matches the repository name:
+## Refresh and scope
 
-```sh
-python3 scripts/init.py my-tool --title "My Tool" --description "Describe what this tool does."
-```
+A daily GitHub Action retrieves IODA regional signals for codes 583 and 576. It computes original summary statistics and links the dated source query for each series. It does not mirror the utility outage maps or republish the IODA raw series. The recent week ends before the previous local day to accommodate reporting delays. The archive retains its first complete daily result per province, with the capture's reference window identified. Data collection began November 19, 2026. A later run can fill a missing day within the rolling period. Coverage outside the two published storms and capture period is unavailable.
 
-Review the category, tags and icon in `tool.json`. `access: "browser"` tells the main
-catalogue that the tool works immediately without installation. `--owner` supports a different
-GitHub owner, but only projects owned by `jsdyer` inherit the CoolCode domain.
-
-4. Replace the example in `web/` and its tests. Update the privacy explanation,
-   source attribution and README to describe the real tool.
-5. Test and preview:
-
-```sh
-node --test tests/*.test.mjs
-python3 -m unittest discover -s tests -v
-python3 scripts/build.py
-python3 -m http.server 8000 --directory dist
-```
-
-Open `http://localhost:8000/`. The example trims lines, skips blanks and removes exact
-duplicates, preserving first-seen order and capitalization. It makes no API requests
-and does not persist text. Update that explanation if your app behaves differently.
-
-CI also tests the browser flow and mobile layout at a project subpath. Replace the
-sample assertions in `tests/browser_smoke.py` when implementing your own UI. To run
-that check locally (optional for ordinary preview):
-
-```sh
-python3 -m venv .venv
-. .venv/bin/activate
-python3 -m pip install -r tests/browser-requirements.txt
-python3 -m playwright install --with-deps chromium
-python3 tests/browser_smoke.py
-```
-
-Playwright is a test-only dependency; the app and its static build do not use it.
-
-## Publish and register
-
-When the actual tool is ready, in the **new tool repository** set **Settings → Pages → Build and deployment →
-Source → GitHub Actions**. Push to `main`, or manually run **Browser tool · Check and
-publish** after enabling Pages. If the initial deployment ran before Pages was enabled,
-enable it and rerun. PRs only check/build and provide a downloadable preview artifact.
-
-Keep asset paths and module imports relative. Check `https://coolcode.ca/my-tool/`.
-Do not add a CNAME or set `coolcode.ca` as this project's custom domain; the account
-site supplies it. Only successful `main` builds deploy.
-
-After verifying the app, copy the reviewed object from `tool.json` into `data/tools.json`
-in [the main site](https://github.com/jsdyer/jsdyer.github.io). Each tool still builds
-independently. Update the hub record when listing metadata changes; the hub is the
-authority for discovery. Ordinary app updates touch only this repository.
-
-The main site separates **Use in your browser** from **Install yourself**. An app
-that asks for a file is still a browser tool. Standalone Linux packages should start
-in their own repositories with their own build/release workflow, rather than copying
-this browser-only scaffold. Their hub record uses `access: "install"`, links to an
-installation guide, and includes `requirements`.
-
-## Files
-
-| Path | Purpose |
-| --- | --- |
-| `tool.json` | Page metadata and a ready-to-copy catalogue record |
-| `web/` | HTML, responsive CSS, DOM interactions and separate model logic |
-| `scripts/build.py` | Escape metadata and build `web/` into `dist/` |
-| `scripts/init.py` | Set a new project's identity |
-| `tests/` | Application and builder tests |
-| `.github/workflows/pages.yml` | Check PRs and publish successful main builds |
-| `AGENTS.md` | Instructions for future coding work |
-
-Namespace optional storage as `coolcode:<tool-id>:<key>`; CoolCode paths share a
-browser origin. Don't save pasted text/uploads by default. Document external APIs
-and send only the information needed for the selected action. Never embed secrets.
-
-Scheduled refresh is opt-in. Validate source data before deploying, display its date,
-and preserve the last good deployment on failure. Public-repository schedules can
-stop after 60 days without repository activity.
-
-Templates don't propagate future edits automatically. Adopt fixes explicitly and
-consider a versioned reusable workflow once several tools confirm the shared process.
-Choose and add the intended software license before distributing a new project.
+Use a current Python 3 standard library and Node. Run `python scripts/refresh.py` to retrieve data, `node --test tests/*.test.mjs` and `python -m unittest discover -s tests` for checks and `python scripts/build.py` for an offline build. Browser smoke tests exercise the storm and metric selectors, hour matching, CSV export, both recent provincial views and the phone layout before Pages deployment. Files are served statically.

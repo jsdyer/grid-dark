@@ -1,0 +1,26 @@
+{
+  "fiona": {
+    "name":"Hurricane Fiona", "province":"Nova Scotia", "region":"583", "zone":"America/Halifax", "start":"2022-09-24", "end":"2022-10-03",
+    "powerScope":"Nova Scotia Power service territory", "utility":"Nova Scotia Power", "utilityUrl":"https://outagemap.nspower.ca/",
+    "bulletins":[
+      {"time":"2022-09-26T12:00:00-03:00","scope":"Province","metric":"Customers restored","value":230000,"qualifier":"More than","url":"https://www.nspower.ca/about-us/press-releases/2022/09/26/ns-power-hurricane-fiona-update"},
+      {"time":"2022-09-27T12:00:00-03:00","scope":"Province","metric":"Customers restored","value":280000,"qualifier":"More than","url":"https://www.nspower.ca/about-us/press-releases/2022/09/27/ns-power-hurricane-fiona-update-historic-storm-response-effort"},
+      {"time":"2022-09-29T10:00:00-03:00","scope":"Province","metric":"Customers restored","value":335000,"qualifier":"More than","url":"https://www.nspower.ca/about-us/press-releases/2022/09/29/ns-power-hurricane-fiona-update"},
+      {"date":"2022-10-02","scope":"Province","metric":"Customers restored","value":385000,"qualifier":"More than","url":"https://www.nspower.ca/about-us/press-releases/2022/10/02/ns-power-hurricane-fiona-update"}
+    ],
+    "context":"Nova Scotia Power estimated that about 415,000 customers lost power during Fiona. Its follow-ups count customers restored. The October 2 bulletin gives a morning estimate without a precise time."
+  },
+  "island": {
+    "name":"Vancouver Island windstorm", "province":"British Columbia", "region":"576", "zone":"America/Vancouver", "start":"2024-11-19","end":"2024-11-23",
+    "powerScope":"Vancouver Island, Gulf Islands and South Coast", "utility":"BC Hydro","utilityUrl":"https://www.bchydro.com/power-outages/app/outage-map.html",
+    "bulletins":[
+      {"time":"2024-11-19T22:00:00-08:00","scope":"Reported storm area","metric":"Customers without power","value":181000,"qualifier":"Reported","url":"https://www.bchydro.com/news/press_centre/news_releases/2024/november-island-windstorm.html"},
+      {"time":"2024-11-20T06:30:00-08:00","scope":"Reported storm area","metric":"Customers without power","value":95000,"qualifier":"About","url":"https://www.bchydro.com/news/press_centre/news_releases/2024/november-island-windstorm.html"},
+      {"time":"2024-11-20T11:30:00-08:00","scope":"Reported storm area","metric":"Customers without power","value":90000,"qualifier":"About","url":"https://www.bchydro.com/news/press_centre/news_releases/2024/november-island-windstorm.html"},
+      {"time":"2024-11-20T17:00:00-08:00","scope":"Reported storm area","metric":"Customers without power","value":65000,"qualifier":"About","url":"https://www.bchydro.com/news/press_centre/news_releases/2024/november-island-windstorm.html"},
+      {"time":"2024-11-21T06:30:00-08:00","scope":"Vancouver Island and Gulf Islands","metric":"Customers without power","value":28000,"qualifier":"About","url":"https://www.bchydro.com/news/press_centre/news_releases/2024/november-island-windstorm.html"},
+      {"time":"2024-11-22T16:00:00-08:00","scope":"Vancouver Island and Gulf Islands","metric":"Customers without power","value":5000,"qualifier":"About","url":"https://www.bchydro.com/news/press_centre/news_releases/2024/november-island-windstorm.html"}
+    ],
+    "context":"BC Hydro reported utility customers still without power. Its final two figures cover Vancouver Island and the Gulf Islands. IODA measures the entire province, including places outside the storm area."
+  }
+}

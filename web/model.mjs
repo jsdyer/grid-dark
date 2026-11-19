@@ -1,7 +1,12 @@
-// Keep transformations separate from the DOM so they can be tested directly.
-export function cleanLines(text) {
-  if (typeof text !== 'string') throw new TypeError('Expected text');
-  const lines = text.split(/\r\n|\r|\n/).map(line => line.trim()).filter(Boolean);
-  const unique = [...new Set(lines)];
-  return { text: unique.join('\n'), count: unique.length, removed: lines.length - unique.length };
+export function lowest(points) {
+  return points.reduce((best,p)=> p[1]!==null && (best===null||p[1]<best[1]) ? p : best,null);
+}
+export function sameHour(points,iso) {
+  if(!iso)return null;
+  const stamp=Date.parse(iso);
+  if(!Number.isFinite(stamp))return null;
+  return points.find(p=>p[0]===Math.floor(stamp/3600000)*3600)??null;
+}
+export function asCSV(rows) {
+  return rows.map(r=>r.map(s=>'"'+String(s??'').replaceAll('"','""')+'"').join(',')).join('\r\n')+'\r\n';
 }

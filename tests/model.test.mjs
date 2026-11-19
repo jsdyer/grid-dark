@@ -1,21 +1,8 @@
-import test from 'node:test';
-import assert from 'node:assert/strict';
-import { cleanLines } from '../web/model.mjs';
-test('trims, removes blanks and preserves first-seen order', () => {
-  assert.deepEqual(cleanLines('  Halifax\nLangley\nHalifax\n\nVancouver  '), {
-    text: 'Halifax\nLangley\nVancouver', count: 3, removed: 1,
-  });
+import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';import {lowest,sameHour,asCSV} from '../web/model.mjs';
+const c=JSON.parse(readFileSync('web/events.json')).cases;
+test('Reported time maps to the hour including half-hours and gaps stay unavailable',()=>{
+ const p=c.island.signals['ping-slash24'].points;assert.equal(sameHour(p,c.island.bulletins[1].time)[0],Date.parse('2024-11-20T14:00Z')/1000);assert.equal(sameHour(p,undefined),null);assert.equal(lowest([[1,null],[2,0]])[1],0)
 });
-test('supports Windows and old Mac line endings', () => {
-  assert.equal(cleanLines('a\r\nb\ra').text, 'a\nb');
+test('Fiona case has complete provincial comparisons and independently dated reports',()=>{
+ assert.equal(c.fiona.bulletins.length,4);assert.equal(c.island.bulletins.length,6);assert.ok(lowest(c.fiona.signals['ping-slash24'].points)[1]<60);assert.ok(lowest(c.fiona.signals.bgp.points)[1]>80);assert.match(asCSV([['a,b','say "ok"']]),/"say ""ok"""/)
 });
-test('empty text and whitespace produce an empty result', () => {
-  assert.deepEqual(cleanLines(' \n\t'), { text: '', count: 0, removed: 0 });
-});
-test('preserves case and Unicode', () => {
-  assert.equal(cleanLines('Québec\nquébec\n東京\nQuébec').text, 'Québec\nquébec\n東京');
-});
-test('treats markup as ordinary text', () => {
-  assert.equal(cleanLines('<script>alert(1)</script>\n<script>alert(1)</script>').text, '<script>alert(1)</script>');
-});
-test('rejects non-text input', () => { assert.throws(() => cleanLines(null), TypeError); });

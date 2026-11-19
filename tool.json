@@ -1,16 +1,39 @@
 {
-  "id": "coolcode-tool-template",
-  "title": "CoolCode Tool Starter",
-  "description": "A browser-only example that trims lines and removes exact duplicates.",
-  "category": "security",
-  "tags": ["text", "lines", "duplicates"],
-  "icon": "scan-search",
-  "url": "/coolcode-tool-template/",
-  "source": "https://github.com/jsdyer/coolcode-tool-template",
+  "title": "Grid Dark",
+  "description": "Compare power restoration bulletins with regional internet measurements during two Canadian storms.",
+  "category": "liminal-tools",
+  "icon": "activity",
+  "tags": [
+    "internet outages",
+    "electricity",
+    "IODA",
+    "Fiona",
+    "British Columbia",
+    "Nova Scotia"
+  ],
+  "id": "grid-dark",
+  "url": "/grid-dark/",
   "hosting": "project",
   "access": "browser",
+  "source": "https://github.com/jsdyer/grid-dark",
   "data_info": {
-    "mode": "local",
-    "detail": "The browser reads the text you paste and compares its lines."
+    "mode": "snapshot",
+    "detail": "Utility bulletins supply dated customer counts. Georgia Tech IODA measurements show how the provincial internet signal compared with its preceding week.",
+    "cadence": "Daily for internet measurements",
+    "probes": [
+      {
+        "label": "Internet data retrieved",
+        "url": "https://coolcode.ca/grid-dark/status.json",
+        "path": [
+          "retrieved"
+        ],
+        "count_at": {
+          "path": [
+            "bulletins"
+          ],
+          "unit": "utility bulletins"
+        }
+      }
+    ]
   }
 }
