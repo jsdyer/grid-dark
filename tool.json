@@ -19,7 +19,7 @@
   "data_info": {
     "mode": "snapshot",
     "detail": "Utility bulletins supply dated customer counts. Georgia Tech IODA measurements show how the provincial internet signal compared with its preceding week.",
-    "cadence": "Daily for internet measurements",
+    "cadence": "Daily",
     "probes": [
       {
         "label": "Internet data retrieved",
