@@ -21,3 +21,11 @@ Power references contain original factual annotations linked to dated [BC Hydro]
 A daily GitHub Action retrieves IODA regional signals for codes 583 and 576. It computes original summary statistics and links the dated source query for each series. It does not mirror the utility outage maps or republish the IODA raw series. The recent week ends before the previous local day to accommodate reporting delays. The archive retains its first complete daily result per province, with the capture's reference window identified. Data collection began November 19, 2026. A later run can fill a missing day within the rolling period. Coverage outside the two published storms and capture period is unavailable.
 
 Use a current Python 3 standard library and Node. Run `python scripts/refresh.py` to retrieve data, `node --test tests/*.test.mjs` and `python -m unittest discover -s tests` for checks and `python scripts/build.py` for an offline build. Browser smoke tests exercise the storm and metric selectors, hour matching, CSV export, both recent provincial views and the phone layout before Pages deployment. Files are served statically.
+
+<!-- schedule-reliability -->
+## Schedule reliability
+
+Public GitHub repositories can have scheduled workflows disabled after 60 days of inactivity. A separate weekly [schedule guard](.github/workflows/schedule-guard.yml) calls GitHub's enable-workflow API for an explicit list of refresh workflows and itself. It can restore workflows disabled for inactivity, preserves manually disabled workflows, and runs independently of collection failures.
+
+This is an interim mitigation, not a scheduling guarantee: GitHub does not document active-workflow renewal as a permanent exemption, and scheduled runs can be delayed or dropped. A scheduler on our own Linux server is the planned independent trigger. The guard does not collect data, create dummy commits, or change source/check timestamps; successful collection and published data freshness still need monitoring.
+<!-- /schedule-reliability -->
